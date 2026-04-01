@@ -8,72 +8,84 @@
 
 <div class="card-box">
 
-<div class="table-responsive">
-<table class="table table-hover align-middle">
+    {{-- HEADER ACTION BAR --}}
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
-<thead>
-<tr>
-<th>#</th>
-<th>Name</th>
-<th>Email</th>
-<th>Role</th>
-<th>Attendance</th>
-<th>Grade</th>
-<th>Action</th>
-</tr>
-</thead>
+        <h5 class="mb-0">All Users</h5>
 
-<tbody>
+        {{-- ADD NEW USER BUTTON --}}
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i> Add New User
+        </a>
 
-@foreach($users as $user)
-<tr>
+    </div>
 
-<td>{{ $user->id }}</td>
-<td>{{ $user->name }}</td>
-<td>{{ $user->email }}</td>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
 
-<td>
-<span class="badge bg-secondary">
-{{ ucfirst($user->role) }}
-</span>
-</td>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Attendance</th>
+                    <th>Grade</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-<td>
-{{ $user->attendance_count }}
-{{ is_numeric($user->attendance_count) ? 'Days' : '' }}
-</td>
+            <tbody>
 
-<td>
-@if($user->grade !== '-')
-<span class="badge bg-primary">
-Grade {{ $user->grade }}
-</span>
-@else
-<span class="text-muted">-</span>
-@endif
-</td>
+                @foreach($users as $user)
+                <tr>
 
-<td>
-<form action="{{ route('admin.users.delete', $user) }}" method="POST"
-onsubmit="return confirm('Delete this user?')">
-@csrf
-@method('DELETE')
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
 
-<button class="btn btn-sm btn-outline-danger"
-{{ $user->id === auth()->id() ? 'disabled' : '' }}>
-<i class="bi bi-trash"></i>
-</button>
+                    <td>
+                        <span class="badge bg-secondary">
+                            {{ ucfirst($user->role) }}
+                        </span>
+                    </td>
 
-</form>
-</td>
+                    <td>
+                        {{ $user->attendance_count }}
+                        {{ is_numeric($user->attendance_count) ? 'Days' : '' }}
+                    </td>
 
-</tr>
-@endforeach
+                    <td>
+                        @if($user->grade !== '-')
+                            <span class="badge bg-primary">
+                                Grade {{ $user->grade }}
+                            </span>
+                        @else
+                            <span class="text-muted">-</span>
+                        @endif
+                    </td>
 
-</tbody>
+                    <td>
+                        <form action="{{ route('admin.users.delete', $user) }}" method="POST"
+                            onsubmit="return confirm('Delete this user?')">
+                            @csrf
+                            @method('DELETE')
 
-</table>
-</div>
+                            <button class="btn btn-sm btn-outline-danger"
+                                {{ $user->id === auth()->id() ? 'disabled' : '' }}>
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                        </form>
+                    </td>
+
+                </tr>
+                @endforeach
+
+            </tbody>
+
+        </table>
+    </div>
 
 </div>
 

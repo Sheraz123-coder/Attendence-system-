@@ -16,9 +16,7 @@
 
 <div class="card-box">
 
-@if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
-@endif
+
 
 <form action="{{ route('admin.tasks.store') }}" method="POST">
 @csrf

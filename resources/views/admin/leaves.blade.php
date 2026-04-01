@@ -8,9 +8,7 @@
 
 <div class="card-box">
 
-@if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
-@endif
+
 
 <table class="table table-hover align-middle">
 
